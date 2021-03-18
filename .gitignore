@@ -1,0 +1,7 @@
+# Archivos de configuración de Eclipse
+.classpath
+.project
+.settings/
+
+# Directorios de artefactos generados en Maven
+target/
