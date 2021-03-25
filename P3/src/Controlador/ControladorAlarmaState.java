@@ -1,0 +1,38 @@
+package Controlador;
+
+public abstract class ControladorAlarmaState {
+
+	private static Desprogramado estadoDesprogramado = new Desprogramado();
+	private static Programado estadoProgramado = new Programado();
+	private static Sonando estadoSonando = new Sonando();
+
+	public static ControladorAlarmaState init(ControladorAlarma context) {
+		// devuelve estado inicial
+
+		return estadoDesprogramado;
+	}
+
+	public void NuevaAlarma(ControladorAlarma context, Alarma a) {
+	}
+
+	public void BorraAlarma(ControladorAlarma context, Alarma a) {
+	}
+
+	public void Apagar(ControladorAlarma context, Alarma a) {
+	}
+
+	public void AlarmaOff(ControladorAlarma context, Alarma a) {
+	}
+
+	public void AlarmaOn(ControladorAlarma context, Alarma a) {
+	}
+
+	public void entryAction(ControladorAlarma context, Alarma a) {
+	}
+
+	public void exitAction(ControladorAlarma context, Alarma a) {
+	}
+
+	public void doAction(ControladorAlarma context, Alarma a) {
+	}
+}
