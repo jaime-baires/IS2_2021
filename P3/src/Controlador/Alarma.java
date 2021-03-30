@@ -32,7 +32,8 @@ public class Alarma implements Comparable<Alarma> {
 	@Override
 	public int compareTo(Alarma o) {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.hora.compareTo(o.getHora());
+
 	}
 
 	@Override

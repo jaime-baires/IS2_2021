@@ -1,6 +1,11 @@
 package Controlador;
 
+import java.util.Timer;
+
 public class Sonando extends ControladorAlarmaState {
+
+	protected Timer timer = new Timer();
+	protected SonandoTask sonandoTask;
 
 	public Sonando() {
 		super();
@@ -9,20 +14,24 @@ public class Sonando extends ControladorAlarmaState {
 
 	@Override
 	public void Apagar(ControladorAlarma context, Alarma a) {
-		// TODO Auto-generated method stub
-		context.eliminaAlarma(a);
-		context.setState(new Desprogramado());
+		this.exitAction(context, a);
 	}
 
 	@Override
 	public void entryAction(ControladorAlarma context, Alarma a) {
-		// TODO Auto-generated method stub
 		context.activarMelodia();
+		sonandoTask = new SonandoTask(context, a, this);
+		timer.schedule(sonandoTask, context.getINTERVALO_SONAR());
 	}
 
 	@Override
 	public void exitAction(ControladorAlarma context, Alarma a) {
-		// TODO Auto-generated method stub
 		context.desactivarMelodia();
+		context.eliminaAlarma(a);
+		if (context.alarmasActivas().size() == 0) {
+			context.setState(new Desprogramado());
+		} else {
+			context.setState(new Programado());
+		}
 	}
 }

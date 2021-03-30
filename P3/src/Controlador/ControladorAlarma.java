@@ -1,12 +1,13 @@
 package Controlador;
 
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 
 public class ControladorAlarma {
 
 	private int INTERVALO_SONAR;
-	private LinkedList<Alarma> alarmasActivas;
-	private LinkedList<Alarma> alarmasDesactivadas;
+	private PriorityQueue<Alarma> alarmasActivas = new PriorityQueue<Alarma>();
+	private LinkedList<Alarma> alarmasDesactivadas = new LinkedList<Alarma>();
 	private ControladorAlarmaState state;
 
 	public ControladorAlarma() {
@@ -22,6 +23,9 @@ public class ControladorAlarma {
 		return true;
 	}
 
+	/**
+	 * Cuando se elimina por completo la alarma
+	 */
 	public boolean eliminaAlarma(Alarma a) {
 		if (alarmasActivas.contains(a)) {
 			alarmasActivas.remove(a);
@@ -38,13 +42,16 @@ public class ControladorAlarma {
 		return null;
 	}
 
+	/**
+	 * Cuando el usuario desactiva manualmente una alarma sin que esté sonando
+	 */
 	public void desactivaAlarma(Alarma a) {
 		alarmasActivas.remove(a);
 		alarmasDesactivadas.add(a);
 
 	}
 
-	public LinkedList<Alarma> alarmasActivas() {
+	public PriorityQueue<Alarma> alarmasActivas() {
 		return this.alarmasActivas;
 	}
 
@@ -53,11 +60,11 @@ public class ControladorAlarma {
 	}
 
 	public void activarMelodia() {
-
+		System.out.println("SONANDO");
 	}
 
 	public void desactivarMelodia() {
-
+		System.out.println("YA NO ESTÁ SONANDO");
 	}
 
 	public void NuevaAlarma(Alarma a) {
@@ -88,6 +95,14 @@ public class ControladorAlarma {
 		alarmasDesactivadas.remove(a);
 		alarmasActivas.add(a);
 
+	}
+
+	public int getINTERVALO_SONAR() {
+		return INTERVALO_SONAR;
+	}
+
+	public void setINTERVALO_SONAR(int iNTERVALO_SONAR) {
+		INTERVALO_SONAR = iNTERVALO_SONAR;
 	}
 
 }
