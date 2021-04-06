@@ -22,7 +22,6 @@ public class Desprogramado extends ControladorAlarmaState {
 
 	@Override
 	public void NuevaAlarma(ControladorAlarma context, Alarma a) {
-		// TODO Auto-generated method stub
 		context.anhadeAlarma(a);
 		context.setState(new Programado());
 	}

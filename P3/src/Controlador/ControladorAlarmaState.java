@@ -6,9 +6,8 @@ public abstract class ControladorAlarmaState {
 	private static Programado estadoProgramado = new Programado();
 	private static Sonando estadoSonando = new Sonando();
 
+	// devuelve estado inicial
 	public static ControladorAlarmaState init(ControladorAlarma context) {
-		// devuelve estado inicial
-
 		return estadoDesprogramado;
 	}
 
@@ -35,4 +34,17 @@ public abstract class ControladorAlarmaState {
 
 	public void doAction(ControladorAlarma context, Alarma a) {
 	}
+
+	public static Desprogramado getEstadoDesprogramado() {
+		return estadoDesprogramado;
+	}
+
+	public static Programado getEstadoProgramado() {
+		return estadoProgramado;
+	}
+
+	public static Sonando getEstadoSonando() {
+		return estadoSonando;
+	}
+
 }

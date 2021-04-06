@@ -5,21 +5,18 @@ import java.util.TimerTask;
 public class ProgramadoTask extends TimerTask {
 	private ControladorAlarma context;
 	private Alarma a;
-	private Sonando s;
 	private Programado p;
 
-	public ProgramadoTask(ControladorAlarma context, Alarma a) {
+	public ProgramadoTask(ControladorAlarma context, Alarma a, Programado p) {
 		super();
 		this.context = context;
 		this.a = a;
+		this.p = p;
 	}
 
 	@Override
 	public void run() {
-
-		context.setState(state);
-		p.at();
-		s.entryAction(context, a);
+		this.p.at(context, a);
 	}
 
 }

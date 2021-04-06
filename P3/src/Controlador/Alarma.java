@@ -31,14 +31,12 @@ public class Alarma implements Comparable<Alarma> {
 
 	@Override
 	public int compareTo(Alarma o) {
-		// TODO Auto-generated method stub
 		return this.hora.compareTo(o.getHora());
 
 	}
 
 	@Override
 	public boolean equals(Object a) {
-		// TODO Auto-generated method stub
 		Alarma d = (Alarma) a;
 		return (d.getHora().equals(this.hora) && d.getId().equals(this.id));
 	}

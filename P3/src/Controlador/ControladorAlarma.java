@@ -10,14 +10,58 @@ public class ControladorAlarma {
 	private LinkedList<Alarma> alarmasDesactivadas = new LinkedList<Alarma>();
 	private ControladorAlarmaState state;
 
+	// Constructor
 	public ControladorAlarma() {
 		state = ControladorAlarmaState.init(this);
 	}
 
+	// SetState
+	public void setState(ControladorAlarmaState state) {
+		this.state = state;
+	}
+
+	// Señal
+	public void NuevaAlarma(Alarma a) {
+		state.NuevaAlarma(this, a);
+	}
+
+	// Señal
+	public void BorraAlarma(Alarma a) {
+		state.BorraAlarma(this, a);
+	}
+
+	// Señal
+	public void Apagar(Alarma a) {
+		state.Apagar(this, a);
+	}
+
+	// Señal
+	public void AlarmaOff(Alarma a) {
+		state.AlarmaOff(this, a);
+	}
+
+	// Señal
+	public void AlarmaOn(Alarma a) {
+		state.AlarmaOn(this, a);
+	}
+
+	// Métodos de negocio
+
 	public Alarma alarma(String id) {
+		for (Alarma a : alarmasActivas) {
+			if (a.getId().equals(id))
+				return a;
+		}
+		for (Alarma a : alarmasDesactivadas) {
+			if (a.getId().equals(id))
+				return a;
+		}
 		return null;
 	}
 
+	/**
+	 * Añade desde cero una alarma nueva
+	 */
 	public boolean anhadeAlarma(Alarma a) {
 		alarmasActivas.add(a);
 		return true;
@@ -38,8 +82,11 @@ public class ControladorAlarma {
 		return false;
 	}
 
+	/**
+	 * Retorna null si está vacía la lista ordenada
+	 */
 	public Alarma alarmaMasProxima() {
-		return null;
+		return alarmasActivas.peek();
 	}
 
 	/**
@@ -67,30 +114,9 @@ public class ControladorAlarma {
 		System.out.println("YA NO ESTÁ SONANDO");
 	}
 
-	public void NuevaAlarma(Alarma a) {
-		state.NuevaAlarma(this, a);
-	}
-
-	public void BorraAlarma(Alarma a) {
-		state.BorraAlarma(this, a);
-	}
-
-	public void Apagar(Alarma a) {
-		state.Apagar(this, a);
-	}
-
-	public void AlarmaOff(Alarma a) {
-		state.AlarmaOff(this, a);
-	}
-
-	public void AlarmaOn(Alarma a) {
-		state.AlarmaOn(this, a);
-	}
-
-	public void setState(ControladorAlarmaState state) {
-		this.state = state;
-	}
-
+	/**
+	 * Activar una alarma que estaba deshabilitada
+	 */
 	public void activarAlarma(Alarma a) {
 		alarmasDesactivadas.remove(a);
 		alarmasActivas.add(a);
