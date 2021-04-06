@@ -1,4 +1,7 @@
-package Controlador;
+package Modelo;
+
+import Controlador.ControladorAlarma;
+import Controlador.ControladorAlarmaState;
 
 public class Desprogramado extends ControladorAlarmaState {
 

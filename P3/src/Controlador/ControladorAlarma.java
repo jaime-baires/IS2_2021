@@ -3,6 +3,8 @@ package Controlador;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
+import Modelo.Alarma;
+
 public class ControladorAlarma {
 
 	private int INTERVALO_SONAR;

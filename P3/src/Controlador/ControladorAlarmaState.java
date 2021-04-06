@@ -1,5 +1,10 @@
 package Controlador;
 
+import Modelo.Alarma;
+import Modelo.Desprogramado;
+import Modelo.Programado;
+import Modelo.Sonando;
+
 public abstract class ControladorAlarmaState {
 
 	private static Desprogramado estadoDesprogramado = new Desprogramado();

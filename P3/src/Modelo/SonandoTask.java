@@ -1,6 +1,8 @@
-package Controlador;
+package Modelo;
 
 import java.util.TimerTask;
+
+import Controlador.ControladorAlarma;
 
 public class SonandoTask extends TimerTask {
 

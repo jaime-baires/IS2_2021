@@ -1,6 +1,9 @@
-package Controlador;
+package Modelo;
 
 import java.util.Timer;
+
+import Controlador.ControladorAlarma;
+import Controlador.ControladorAlarmaState;
 
 public class Sonando extends ControladorAlarmaState {
 
