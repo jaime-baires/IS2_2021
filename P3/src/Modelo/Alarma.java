@@ -41,4 +41,9 @@ public class Alarma implements Comparable<Alarma> {
 		return (d.getHora().equals(this.hora) && d.getId().equals(this.id));
 	}
 
+	@Override
+	public String toString() {
+		return id;
+	}
+
 }

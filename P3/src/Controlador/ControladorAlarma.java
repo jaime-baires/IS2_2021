@@ -7,7 +7,7 @@ import Modelo.Alarma;
 
 public class ControladorAlarma {
 
-	private int INTERVALO_SONAR;
+	private int INTERVALO_SONAR = 15000;
 	private PriorityQueue<Alarma> alarmasActivas = new PriorityQueue<Alarma>();
 	private LinkedList<Alarma> alarmasDesactivadas = new LinkedList<Alarma>();
 	private ControladorAlarmaState state;

@@ -31,6 +31,7 @@ public class Sonando extends ControladorAlarmaState {
 	public void exitAction(ControladorAlarma context, Alarma a) {
 		context.desactivarMelodia();
 		context.eliminaAlarma(a);
+		sonandoTask.cancel();
 		if (context.alarmasActivas().size() == 0) {
 			context.setState(new Desprogramado());
 		} else {

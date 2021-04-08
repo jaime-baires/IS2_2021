@@ -23,7 +23,12 @@ public class Programado extends ControladorAlarmaState {
 	@Override
 	public void AlarmaOff(ControladorAlarma context, Alarma a) {
 		context.desactivaAlarma(a);
-		programadoTask.cancel();
+		try {
+			programadoTask.cancel();
+		} catch (Exception e) {
+
+		}
+
 		if (context.alarmasActivas().size() == 0) {
 			context.setState(new Desprogramado());
 		} else {
@@ -35,7 +40,7 @@ public class Programado extends ControladorAlarmaState {
 	public void AlarmaOn(ControladorAlarma context, Alarma a) {
 		context.activarAlarma(a);
 		context.setState(new Programado());
-
+		this.entryAction(context, a);
 	}
 
 	@Override
@@ -52,6 +57,7 @@ public class Programado extends ControladorAlarmaState {
 	public void NuevaAlarma(ControladorAlarma context, Alarma a) {
 		context.anhadeAlarma(a);
 		context.setState(new Programado());
+		this.entryAction(context, a);
 	}
 
 	public void at(ControladorAlarma context, Alarma a) {

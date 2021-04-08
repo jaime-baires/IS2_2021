@@ -13,8 +13,9 @@ public class Desprogramado extends ControladorAlarmaState {
 	public void AlarmaOn(ControladorAlarma context, Alarma a) {
 		context.activarAlarma(a);
 		context.desactivaAlarma(a);
-		context.setState(new Programado());
-
+		Programado p = new Programado();
+		context.setState(p);
+		p.entryAction(context, a);
 	}
 
 	@Override
@@ -26,6 +27,8 @@ public class Desprogramado extends ControladorAlarmaState {
 	@Override
 	public void NuevaAlarma(ControladorAlarma context, Alarma a) {
 		context.anhadeAlarma(a);
-		context.setState(new Programado());
+		Programado p = new Programado();
+		context.setState(p);
+		p.entryAction(context, a);
 	}
 }

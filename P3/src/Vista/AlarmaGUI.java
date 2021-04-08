@@ -2,7 +2,12 @@ package Vista;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Calendar;
+import java.util.Date;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,8 +15,10 @@ import javax.swing.JList;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 
+import Controlador.ControladorAlarma;
 import Modelo.Alarma;
 
 public class AlarmaGUI {
@@ -24,8 +31,11 @@ public class AlarmaGUI {
 	private JButton offButton;
 	private JButton onButton;
 	private JButton eliminarButton;
-	private JList<Alarma> alarmasActivasList;
-	private JList<Alarma> alarmasDesactivadasList;
+	private DefaultListModel<Alarma> modelActivas = new DefaultListModel<>();
+	private JList<Alarma> alarmasActivasList = new JList<>(modelActivas);
+	private DefaultListModel<Alarma> modelDesactivadas = new DefaultListModel<>();
+	private JList<Alarma> alarmasDesactivadasList = new JList<>(modelDesactivadas);
+	private ControladorAlarma controller = new ControladorAlarma();
 
 	/**
 	 * Launch the application.
@@ -75,16 +85,35 @@ public class AlarmaGUI {
 		lblHoraAlarma.setBounds(24, 116, 71, 14);
 		frame.getContentPane().add(lblHoraAlarma);
 
-		JSpinner horaAlarmaSpinner = new JSpinner();
+		SpinnerDateModel model = new SpinnerDateModel(new Date(), null, null, Calendar.HOUR_OF_DAY);
+		JSpinner horaAlarmaSpinner = new JSpinner(model);
 		horaAlarmaSpinner.setBounds(109, 113, 86, 20);
 		frame.getContentPane().add(horaAlarmaSpinner);
 
 		JButton nuevaAlarmaButton = new JButton("Nueva Alarma");
+		nuevaAlarmaButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Date d = (Date) horaAlarmaSpinner.getValue();
+				System.out.println(d);
+				String id = idAlarmaTextField.getText();
+				Alarma a = new Alarma(id, d);
+				controller.NuevaAlarma(a);
+				refrescaListas();
+			}
+		});
 		nuevaAlarmaButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		nuevaAlarmaButton.setBounds(24, 162, 171, 23);
 		frame.getContentPane().add(nuevaAlarmaButton);
 
 		JButton apagarButton = new JButton("\u00A1APAGAR!");
+		apagarButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				controller.Apagar(controller.alarmaMasProxima());
+				refrescaListas();
+			}
+		});
 		apagarButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		apagarButton.setBounds(24, 196, 171, 43);
 		frame.getContentPane().add(apagarButton);
@@ -102,39 +131,80 @@ public class AlarmaGUI {
 		frame.getContentPane().add(lblNewLabel_2);
 
 		offButton = new JButton("OFF");
+		offButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Alarma a = alarmasActivasList.getSelectedValue();
+				if (a != null) {
+					controller.AlarmaOff(a);
+
+				}
+				refrescaListas();
+			}
+		});
 		offButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 		offButton.setBounds(274, 365, 56, 23);
 		frame.getContentPane().add(offButton);
 
 		onButton = new JButton("ON");
+		onButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Alarma a = alarmasDesactivadasList.getSelectedValue();
+				if (a != null) {
+					controller.AlarmaOn(a);
+
+				}
+				refrescaListas();
+			}
+		});
 		onButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 		onButton.setBounds(344, 365, 56, 23);
 		frame.getContentPane().add(onButton);
 
 		eliminarButton = new JButton("ELIMINAR");
+		eliminarButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Alarma a = alarmasActivasList.getSelectedValue();
+				if (a == null) {
+					a = alarmasDesactivadasList.getSelectedValue();
+				}
+				if (a != null) {
+					controller.BorraAlarma(a);
+				}
+				refrescaListas();
+			}
+		});
 		eliminarButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 		eliminarButton.setBounds(274, 397, 126, 23);
 		frame.getContentPane().add(eliminarButton);
 
-		alarmasActivasList = new JList<Alarma>();
-		alarmasActivasList.setVisibleRowCount(-1);
+		// modelActivas.addElement(new Alarma("Levantarse", new Date()));
+		alarmasActivasList.setVisible(true);
+		alarmasActivasList.setVisibleRowCount(6);
 		alarmasActivasList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		alarmasActivasList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		alarmasActivasList.setToolTipText("");
-		// JScrollPane listScroller = new JScrollPane(alarmasActivasList);
-		// listScroller.setPreferredSize(new Dimension(250, 80));
 
-		alarmasActivasList.setBounds(274, 196, 126, -100);
+		alarmasActivasList.setBounds(274, 79, 126, 100);
 		frame.getContentPane().add(alarmasActivasList);
 
-		alarmasDesactivadasList = new JList<Alarma>();
-		alarmasDesactivadasList.setVisibleRowCount(-1);
+		alarmasDesactivadasList.setVisible(true);
+		alarmasDesactivadasList.setVisibleRowCount(6);
 		alarmasDesactivadasList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		alarmasDesactivadasList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		alarmasDesactivadasList.setToolTipText("");
-		alarmasDesactivadasList.setBounds(274, 342, 126, -91);
-		// JScrollPane listScroller2 = new JScrollPane(alarmasDesactivadasList);
-		// listScroller2.setPreferredSize(new Dimension(250, 80));
+		alarmasDesactivadasList.setBounds(274, 252, 126, 91);
 		frame.getContentPane().add(alarmasDesactivadasList);
+	}
+
+	private void refrescaListas() {
+		modelActivas.removeAllElements();
+		modelDesactivadas.removeAllElements();
+		for (Alarma al : controller.alarmasActivas()) {
+			modelActivas.addElement(al);
+		}
+		for (Alarma al : controller.alarmasDesactivadas()) {
+			modelDesactivadas.addElement(al);
+		}
 	}
 }
