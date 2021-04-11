@@ -1,9 +1,9 @@
-package Modelo;
+package es.unican.is2.practica3.Modelo;
 
 import java.util.Timer;
 
-import Controlador.ControladorAlarma;
-import Controlador.ControladorAlarmaState;
+import es.unican.is2.practica3.Controlador.ControladorAlarma;
+import es.unican.is2.practica3.Controlador.ControladorAlarmaState;
 
 public class Sonando extends ControladorAlarmaState {
 
@@ -22,9 +22,11 @@ public class Sonando extends ControladorAlarmaState {
 
 	@Override
 	public void entryAction(ControladorAlarma context, Alarma a) {
-		context.activarMelodia();
-		sonandoTask = new SonandoTask(context, a, this);
-		timer.schedule(sonandoTask, context.getINTERVALO_SONAR());
+		if (context.alarmasActivas().contains(a)) {
+			context.activarMelodia();
+			sonandoTask = new SonandoTask(context, a, this);
+			timer.schedule(sonandoTask, context.getINTERVALO_SONAR());
+		}
 	}
 
 	@Override

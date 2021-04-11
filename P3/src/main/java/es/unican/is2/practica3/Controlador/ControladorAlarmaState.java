@@ -1,9 +1,9 @@
-package Controlador;
+package es.unican.is2.practica3.Controlador;
 
-import Modelo.Alarma;
-import Modelo.Desprogramado;
-import Modelo.Programado;
-import Modelo.Sonando;
+import es.unican.is2.practica3.Modelo.Alarma;
+import es.unican.is2.practica3.Modelo.Desprogramado;
+import es.unican.is2.practica3.Modelo.Programado;
+import es.unican.is2.practica3.Modelo.Sonando;
 
 public abstract class ControladorAlarmaState {
 

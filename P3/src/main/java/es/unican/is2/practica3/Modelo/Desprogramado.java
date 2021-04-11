@@ -1,7 +1,7 @@
-package Modelo;
+package es.unican.is2.practica3.Modelo;
 
-import Controlador.ControladorAlarma;
-import Controlador.ControladorAlarmaState;
+import es.unican.is2.practica3.Controlador.ControladorAlarma;
+import es.unican.is2.practica3.Controlador.ControladorAlarmaState;
 
 public class Desprogramado extends ControladorAlarmaState {
 
@@ -12,7 +12,6 @@ public class Desprogramado extends ControladorAlarmaState {
 	@Override
 	public void AlarmaOn(ControladorAlarma context, Alarma a) {
 		context.activarAlarma(a);
-		context.desactivaAlarma(a);
 		Programado p = new Programado();
 		context.setState(p);
 		p.entryAction(context, a);

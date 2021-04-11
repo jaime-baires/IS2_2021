@@ -1,8 +1,8 @@
-package Modelo;
+package es.unican.is2.practica3.Modelo;
 
 import java.util.TimerTask;
 
-import Controlador.ControladorAlarma;
+import es.unican.is2.practica3.Controlador.ControladorAlarma;
 
 public class SonandoTask extends TimerTask {
 

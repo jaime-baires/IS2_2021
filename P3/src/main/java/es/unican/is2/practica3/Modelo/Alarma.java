@@ -1,4 +1,4 @@
-package Modelo;
+package es.unican.is2.practica3.Modelo;
 
 import java.util.Date;
 
@@ -43,7 +43,7 @@ public class Alarma implements Comparable<Alarma> {
 
 	@Override
 	public String toString() {
-		return id;
+		return id + " - " + hora.getHours() + ":" + hora.getMinutes();
 	}
 
 }

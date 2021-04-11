@@ -1,9 +1,9 @@
-package Modelo;
+package es.unican.is2.practica3.Modelo;
 
 import java.util.Timer;
 
-import Controlador.ControladorAlarma;
-import Controlador.ControladorAlarmaState;
+import es.unican.is2.practica3.Controlador.ControladorAlarma;
+import es.unican.is2.practica3.Controlador.ControladorAlarmaState;
 
 public class Programado extends ControladorAlarmaState {
 
@@ -16,8 +16,10 @@ public class Programado extends ControladorAlarmaState {
 
 	@Override
 	public void entryAction(ControladorAlarma context, Alarma a) {
-		programadoTask = new ProgramadoTask(context, a, this);
-		timer.schedule(programadoTask, a.getHora());
+		if (context.alarmasActivas().contains(a)) {
+			programadoTask = new ProgramadoTask(context, a, this);
+			timer.schedule(programadoTask, a.getHora());
+		}
 	}
 
 	@Override
@@ -25,6 +27,7 @@ public class Programado extends ControladorAlarmaState {
 		context.desactivaAlarma(a);
 		try {
 			programadoTask.cancel();
+			timer.cancel();
 		} catch (Exception e) {
 
 		}

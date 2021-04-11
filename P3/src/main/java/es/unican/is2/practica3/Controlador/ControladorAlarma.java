@@ -1,9 +1,9 @@
-package Controlador;
+package es.unican.is2.practica3.Controlador;
 
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-import Modelo.Alarma;
+import es.unican.is2.practica3.Modelo.Alarma;
 
 public class ControladorAlarma {
 
@@ -65,7 +65,9 @@ public class ControladorAlarma {
 	 * Añade desde cero una alarma nueva
 	 */
 	public boolean anhadeAlarma(Alarma a) {
-		alarmasActivas.add(a);
+		if (!this.alarmasActivas.contains(a)) {
+			alarmasActivas.add(a);
+		}
 		return true;
 	}
 
@@ -95,9 +97,10 @@ public class ControladorAlarma {
 	 * Cuando el usuario desactiva manualmente una alarma sin que esté sonando
 	 */
 	public void desactivaAlarma(Alarma a) {
-		alarmasActivas.remove(a);
-		alarmasDesactivadas.add(a);
-
+		if (this.alarmasActivas.contains(a)) {
+			alarmasActivas.remove(a);
+			alarmasDesactivadas.add(a);
+		}
 	}
 
 	public PriorityQueue<Alarma> alarmasActivas() {

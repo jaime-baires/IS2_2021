@@ -1,4 +1,4 @@
-package Vista;
+package es.unican.is2.practica3.Vista;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -18,8 +18,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 
-import Controlador.ControladorAlarma;
-import Modelo.Alarma;
+import es.unican.is2.practica3.Controlador.ControladorAlarma;
+import es.unican.is2.practica3.Modelo.Alarma;
 
 public class AlarmaGUI {
 
@@ -153,9 +153,8 @@ public class AlarmaGUI {
 				Alarma a = alarmasDesactivadasList.getSelectedValue();
 				if (a != null) {
 					controller.AlarmaOn(a);
-
+					refrescaListas();
 				}
-				refrescaListas();
 			}
 		});
 		onButton.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -180,7 +179,6 @@ public class AlarmaGUI {
 		eliminarButton.setBounds(274, 397, 126, 23);
 		frame.getContentPane().add(eliminarButton);
 
-		// modelActivas.addElement(new Alarma("Levantarse", new Date()));
 		alarmasActivasList.setVisible(true);
 		alarmasActivasList.setVisibleRowCount(6);
 		alarmasActivasList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
