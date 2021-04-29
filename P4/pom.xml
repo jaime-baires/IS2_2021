@@ -15,6 +15,13 @@
 			<artifactId>fest-swing</artifactId>
 			<version>1.2.1</version>
 		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>es.unican.is2</groupId>
+			<artifactId>containers</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		 -->
 		</dependencies>
 <build>
   <plugins>
